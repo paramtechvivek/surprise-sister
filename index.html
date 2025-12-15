@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Surprise for Didi ❤️</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .screen {
+      width: 320px;
+      height: 600px;
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      padding: 20px;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .active { display: flex; }
+
+    .lock h1 { font-size: 28px; margin-bottom: 10px; }
+    .lock p { opacity: 0.8; }
+    .unlock {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #ff5e78;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .chat { align-items: flex-start; }
+    .bubble {
+      padding: 10px 14px;
+      border-radius: 16px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      animation: fadeUp 0.5s ease;
+    }
+    .left { background: #f1f1f1; align-self: flex-start; }
+    .right { background: #ff5e78; color: white; align-self: flex-end; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .final h1 { font-size: 26px; }
+    .heart {
+      font-size: 40px;
+      animation: beat 1s infinite;
+      margin-top: 20px;
+    }
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Lock Screen -->
+  <div class="screen lock active" id="lock">
+    <h1>🔒 Locked</h1>
+    <p>Enter the secret name to open 💖</p>
+    <input type="text" id="lockInput" placeholder="Enter name..." style="margin-top:20px;padding:10px 14px;border-radius:20px;border:1px solid #ddd;width:80%;text-align:center;" />
+    <div class="unlock" onclick="checkLock()">Unlock 🎁</div>
+    <p id="lockError" style="color:red;margin-top:10px;display:none;">Wrong name 😅 Try again</p>
+  </div>
+
+  <!-- Chat Screen -->
+  <div class="screen chat" id="chat"></div>
+
+  <!-- Slideshow Screen -->
+  <div class="screen slideshow" id="slideshow">
+    <h2>Our Cute Memories 📸</h2>
+    <img id="slideImage" src="img1.jpg" alt="Memory" style="width:100%; border-radius:20px; margin-top:20px;" />
+  </div>
+
+  <!-- Final Screen -->
+  <div class="screen final" id="final">
+    <div class="final-inner">
+      <h1>Best Didi Ever 💖</h1>
+      <p class="final-text">You are my forever guide,<br> my support system <br/> No matter where life takes us,<br>
+      I’ll always be there for you 🌸<br><br/>
+      Thank you for being the most caring sister...</p>
+      <div class="hearts">
+        <span>❤️</span><span>💖</span><span>💕</span><span>💗</span>
+      </div>
+      <button class="replay" onclick="location.reload()">Replay 🔁</button>
+    </div>
+  </div>
+
+  <script>
+    /* 🔓 SIMPLE NAME LOCK ONLY */
+    function checkLock() {
+      const value = document.getElementById('lockInput').value.trim().toLowerCase();
+      if (value === 'didi') {
+        document.getElementById('lockError').style.display = 'none';
+        startSurprise();
+      } else {
+        document.getElementById('lockError').style.display = 'block';
+      }
+    }
+
+    const messages = [
+      { text: 'Hi Didi 👋', side: 'left' },
+      { text: 'I hope you are smiling 😊', side: 'right' },
+      { text: 'I just wanted to say...', side: 'left' },
+      { text: 'You are very special to me 💖', side: 'right' },
+      { text: 'This is a small surprise for you 🎁', side: 'left' }
+    ];
+
+    const images = ['img1.jpg', 'img2.jpg', 'img3.jpg' ,'img4.jpg'];
+    let slideIndex = 0;
+
+    function startSurprise() {
+      const music = document.getElementById('bgMusic');
+      music.play().catch(() => {});
+
+      document.getElementById('lock').classList.remove('active');
+      const chat = document.getElementById('chat');
+      chat.classList.add('active');
+
+      messages.forEach((msg, i) => {
+        setTimeout(() => {
+          const div = document.createElement('div');
+          div.className = 'bubble ' + msg.side;
+          div.innerText = msg.text;
+          chat.appendChild(div);
+        }, i * 1200);
+      });
+
+      setTimeout(() => {
+        chat.classList.remove('active');
+        document.getElementById('slideshow').classList.add('active');
+        startSlideshow();
+      }, messages.length * 1200 + 1000);
+    }
+
+    function startSlideshow() {
+      const slide = document.getElementById('slideImage');
+      slide.src = images[slideIndex];
+
+      const interval = setInterval(() => {
+        slideIndex++;
+        if (slideIndex >= images.length) {
+          clearInterval(interval);
+          document.getElementById('slideshow').classList.remove('active');
+          document.getElementById('final').classList.add('active');
+        } else {
+          slide.src = images[slideIndex];
+        }
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
