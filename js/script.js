@@ -25,63 +25,15 @@ function updateJourneyDots(name) {
   });
 }
 
-
- function addTap(element, callback) {
-    if (!element) return;
-
-    let tapped = false;
-
-    function run(e) {
-        e.preventDefault();
-
-        if (tapped) return;
-
-        tapped = true;
-
-        callback(e);
-
-        setTimeout(() => {
-            tapped = false;
-        }, 300);
-    }
-
-    element.addEventListener("pointerup", run);
-
-    element.addEventListener("click", run, {
-        passive: false
-    });
-}
-
 function initNavigation() {
-
-    document.querySelectorAll(".journey-next").forEach(btn => {
-
-        addTap(btn, () => {
-            goToScene(btn.dataset.target);
-        });
-
-    });
-
-    document.querySelectorAll(".journey-dot").forEach(dot => {
-
-        addTap(dot, () => {
-            goToScene(dot.dataset.target);
-        });
-
-    });
-
-    updateJourneyDots("loading");
+  document.querySelectorAll('.journey-next').forEach((btn) => {
+    btn.addEventListener('click', () => goToScene(btn.dataset.target));
+  });
+  document.querySelectorAll('.journey-dot').forEach((dot) => {
+    dot.addEventListener('click', () => goToScene(dot.dataset.target));
+  });
+  updateJourneyDots('loading');
 }
-
-button.addEventListener("pointerup", async () => {
-
-    try{
-        await bgAudio.play();
-    }catch(e){
-        console.log(e);
-    }
-
-});
 
 /* ---------- 1. Ambient background (stars / moon / clouds / fireflies / floating decor) ---------- */
 function initAmbient() {
