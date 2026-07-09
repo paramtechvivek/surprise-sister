@@ -391,12 +391,12 @@ function initGalleryScene() {
   const lightboxClose = document.getElementById('lightboxClose');
 
   const memories = [
-    { src: 'https://picsum.photos/seed/amu1/420/520', caption: 'Always laughing together' },
-    { src: 'https://picsum.photos/seed/amu2/420/340', caption: 'That perfect day' },
-    { src: 'https://picsum.photos/seed/amu3/420/560', caption: 'Silly faces, best memories' },
-    { src: 'https://picsum.photos/seed/amu4/420/380', caption: 'Just us two' },
-    { src: 'https://picsum.photos/seed/amu5/420/500', caption: 'A moment to treasure' },
-    { src: 'https://picsum.photos/seed/amu6/420/360', caption: 'Forever grateful for you' }
+    { src: 'img2.jpg', caption: 'Always laughing together' },
+    { src: 'img7.jpeg', caption: 'That perfect day' },
+    { src: 'img1.jpg', caption: 'Silly faces, best memories' },
+    { src: 'img6.jpeg', caption: 'Just us two' },
+    { src: 'img8.jpeg', caption: 'A moment to treasure' },
+    { src: 'img4.jpg', caption: 'Forever grateful for you' }
   ];
 
   memories.forEach((m, i) => {
