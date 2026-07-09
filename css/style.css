@@ -2,6 +2,21 @@
    AMU DIIII'S BIRTHDAY SURPRISE — SINGLE PAGE STYLESHEET
    All 7 "scenes" live in one document and crossfade in place.
    ============================================================ */
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html{
+    touch-action: manipulation;
+}
+
+body{
+    overflow-x:hidden;
+    touch-action: manipulation;
+}
 
 :root {
   --bg-deep: #1a0a2e;
@@ -21,6 +36,33 @@
   --font-body: 'Quicksand', sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
+#ambient,
+.stars-bg,
+.moon,
+.cloud,
+.firefly,
+.balloon-svg,
+.heart-emoji,
+.butterfly-svg,
+.sparkle,
+.confetti,
+.floating-decoration{
+    pointer-events:none;
+}
+
+button,
+.journey-next,
+.btn,
+.open-btn,
+.open-gift-btn,
+.next-btn{
+    position:relative;
+    z-index:9999;
+    pointer-events:auto;
+    cursor:pointer;
+    touch-action:manipulation;
+}
+
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { height: 100%; }
