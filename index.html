@@ -1,186 +1,269 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Surprise for Didi ❤️</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday AMU Diiii</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,500&family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Global ambient layers, shared by every scene -->
+    <div id="ambient"></div>
+    <canvas id="fireworksCanvas"></canvas>
+    <div id="confettiRoot"></div>
 
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+    <!-- Scene progress dots — click to jump to any scene -->
+    <nav class="journey-nav">
+      <span class="journey-dot" data-target="loading"></span>
+      <span class="journey-dot" data-target="welcome"></span>
+      <span class="journey-dot" data-target="cake"></span>
+      <span class="journey-dot" data-target="gift"></span>
+      <span class="journey-dot" data-target="gallery"></span>
+      <span class="journey-dot" data-target="message"></span>
+      <span class="journey-dot" data-target="final"></span>
+    </nav>
 
-    .screen {
-      width: 320px;
-      height: 600px;
-      background: #fff;
-      border-radius: 30px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      padding: 20px;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+    <main id="journeyRoot">
+      <!-- SCENE 1 — Loading -->
+      <section class="journey-section active" id="section-loading">
+        <div class="countdown-container">
+          <h2 class="loading-text">
+            A Special Birthday Surprise is Waiting...
+          </h2>
 
-    .active { display: flex; }
+          <div id="loadingCountdown" class="loading-countdown">3</div>
 
-    .lock h1 { font-size: 28px; margin-bottom: 10px; }
-    .lock p { opacity: 0.8; }
-    .unlock {
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #ff5e78;
-      color: white;
-      border-radius: 25px;
-      cursor: pointer;
-      animation: pulse 1.5s infinite;
-    }
+          <p class="loading-subtitle">Get Ready...</p>
+        </div>
+      </section>
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+      <!-- SCENE 2 — Welcome -->
+      <section class="journey-section" id="section-welcome">
+        <p class="eyebrow">A little surprise</p>
+        <h1 class="title-display">🎉 Happy Birthday AMU Diiii 🎉</h1>
+        <p class="subtitle">
+          Today is all about celebrating the most wonderful sister. This little
+          surprise is made with lots of love just for you.
+        </p>
+        <button class="btn glow-outline journey-next" data-target="cake">
+          ✨ Start Your Birthday Journey ✨
+        </button>
+      </section>
 
-    .chat { align-items: flex-start; }
-    .bubble {
-      padding: 10px 14px;
-      border-radius: 16px;
-      margin-bottom: 10px;
-      max-width: 80%;
-      animation: fadeUp 0.5s ease;
-    }
-    .left { background: #f1f1f1; align-self: flex-start; }
-    .right { background: #ff5e78; color: white; align-self: flex-end; }
+      <!-- SCENE 3 — Cake -->
+      <section class="journey-section" id="section-cake">
+        <p class="eyebrow">Make a wish</p>
+        <h2 class="title-display scene-heading">Time to Blow the Candles</h2>
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        <div class="cake-wrap">
+          <div class="cake" id="cakeEl">
+            <div class="flame-group">
+              <div class="candle"><div class="flame"></div></div>
+              <div class="candle"><div class="flame"></div></div>
+              <div class="candle"><div class="flame"></div></div>
+            </div>
+            <div class="cake-layer layer-top">
+              <div class="drip"></div>
+              <div class="drip"></div>
+              <div class="drip"></div>
+              <div class="rose" style="top: -8px; left: 20px"></div>
+              <div class="rose" style="top: -8px; right: 20px"></div>
+            </div>
+            <div class="cake-layer layer-mid"></div>
+            <div class="cake-layer layer-bottom"></div>
+            <div class="cake-plate"></div>
+          </div>
+          <div class="smoke-container" id="smokeContainer"></div>
+        </div>
 
-    .final h1 { font-size: 26px; }
-    .heart {
-      font-size: 40px;
-      animation: beat 1s infinite;
-      margin-top: 20px;
-    }
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.3); }
-    }
-  </style>
-</head>
-<body>
+        <button class="btn" id="blowBtn">🎂 Blow the Candles</button>
+        <p class="wish-text hidden" id="wishText">
+          🎉 Make A Wish AMU Diiii 🎉
+        </p>
+        <button
+          class="btn glass glow-outline hidden journey-next"
+          id="cakeNextBtn"
+          data-target="gift"
+        >
+          Next Surprise →
+        </button>
+      </section>
 
-  <!-- Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+      <!-- SCENE 4 — Gift -->
+      <section class="journey-section" id="section-gift">
+        <p class="eyebrow">A gift for you</p>
+        <h2 class="title-display scene-heading">A Little Something Special</h2>
 
-  <!-- Lock Screen -->
-  <div class="screen lock active" id="lock">
-    <h1>🔒 Locked</h1>
-    <p>Enter the secret name to open 💖</p>
-    <input type="text" id="lockInput" placeholder="Enter name..." style="margin-top:20px;padding:10px 14px;border-radius:20px;border:1px solid #ddd;width:80%;text-align:center;" />
-    <div class="unlock" onclick="checkLock()">Unlock 🎁</div>
-    <p id="lockError" style="color:red;margin-top:10px;display:none;">Wrong name 😅 Try again</p>
-  </div>
+        <div class="gift-wrap">
+          <div class="gift-box" id="giftBox">
+            <div class="gift-lid"></div>
+            <div class="gift-body"></div>
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+          </div>
+        </div>
 
-  <!-- Chat Screen -->
-  <div class="screen chat" id="chat"></div>
+        <button class="btn" id="openGiftBtn">🎁 Open Gift</button>
 
-  <!-- Slideshow Screen -->
-  <div class="screen slideshow" id="slideshow">
-    <h2>Our Cute Memories 📸</h2>
-    <img id="slideImage" src="img1.jpg" alt="Memory" style="width:100%; border-radius:20px; margin-top:20px;" />
-  </div>
+        <div class="gift-reveal hidden" id="giftReveal">
+          <p>I am in your life what greater gift could there be than that?</p>
+        </div>
+        <button
+          class="btn glass glow-outline hidden journey-next"
+          id="giftNextBtn"
+          data-target="gallery"
+        >
+          See Memories
+        </button>
+      </section>
 
-  <!-- Final Screen -->
-  <div class="screen final" id="final">
-    <div class="final-inner">
-      <h1>Best Didi Ever 💖</h1>
-      <p class="final-text">You are my forever guide,<br> my support system <br/> No matter where life takes us,<br>
-      I’ll always be there for you 🌸<br><br/>
-      Thank you for being the most caring sister...</p>
-      <div class="hearts">
-        <span>❤️</span><span>💖</span><span>💕</span><span>💗</span>
-      </div>
-      <button class="replay" onclick="location.reload()">Replay 🔁</button>
+      <!-- SCENE 5 — Gallery -->
+      <section class="journey-section" id="section-gallery">
+        <p class="eyebrow">Memory lane</p>
+        <h2 class="title-display scene-heading">Our Beautiful Memories</h2>
+        <div class="gallery-grid" id="galleryGrid"></div>
+        <button
+          class="btn glow-outline journey-next"
+          data-target="message"
+          style="margin-top: 30px"
+        >
+          Read My Letter
+        </button>
+      </section>
+
+      <!-- SCENE 6 — Message -->
+      <section class="journey-section" id="section-message">
+        <p class="eyebrow">From my heart</p>
+        <h2 class="title-display scene-heading">A Little Letter For You</h2>
+        <p class="subtitle" style="margin-bottom: 10px">
+          Tap the envelope to open it
+        </p>
+
+        <div class="envelope-wrap">
+          <div class="envelope" id="envelope">
+            <div class="letter-paper"></div>
+            <div class="envelope-flap"></div>
+            <div class="envelope-seal">💌</div>
+          </div>
+        </div>
+
+        <div class="letter-full hidden" id="letterFull">
+          <p>Dear AMU Diiii,</p>
+          <br />
+          <p>
+            Thank you for always supporting me, caring for me, and making every
+            moment special.
+          </p>
+          <br />
+          <p>
+            I wish you endless happiness, good health, success, and a life full
+            of beautiful memories.
+          </p>
+          <br />
+          <p>May every dream you have become true.</p>
+          <br />
+          <p>Happy Birthday!</p>
+          <p class="letter-signature">Love You Always ❤️</p>
+        </div>
+
+        <button
+          class="btn glow-outline hidden journey-next"
+          id="messageNextBtn"
+          data-target="final"
+        >
+          Final Celebration
+        </button>
+      </section>
+
+      <!-- SCENE 7 — Final celebration -->
+      <!-- SCENE 7 — Grand Finale -->
+      <section class="journey-section finale-scene" id="section-final">
+        <div class="final-stars"></div>
+
+        <div class="moon">🌙</div>
+
+        <div class="final-balloons">
+          <span>🎈</span>
+          <span>🎈</span>
+          <span>🎈</span>
+          <span>🎈</span>
+          <span>🎈</span>
+        </div>
+
+        <h1 class="finale-title">🎉 Happy Birthday AMU Diiii 🎉</h1>
+
+        <p class="final-subtitle">
+          You are not just my sister...
+          <br />
+          You are my biggest blessing, my best friend, and the reason behind so
+          many beautiful memories. ❤️
+        </p>
+
+        <div class="birthday-card">
+          <div class="card-glow"></div>
+
+          <h2>💖 Best Wishes 💖</h2>
+
+          <p>
+            May your life always be filled with happiness, love, success,
+            laughter and endless adventures.
+          </p>
+
+          <p>Keep smiling because your smile makes everyone's day brighter.</p>
+
+          <h3>Love You Forever ❤️</h3>
+        </div>
+
+        <div class="celebrate-icons">✨ 🎂 🎁 💐 🌸 🦋 ❤️ ✨</div>
+
+        <button class="btn celebrate-btn" id="celebrateBtn">
+          🎆 Celebrate Again
+        </button>
+
+        <button class="btn glass journey-next" data-target="welcome">
+          ↺ Replay Surprise
+        </button>
+      </section>
+    </main>
+
+    <div id="countdownOverlay" class="hidden">
+      <div class="countdown-number" id="countdownNumber">3</div>
     </div>
-  </div>
 
-  <script>
-    /* 🔓 SIMPLE NAME LOCK ONLY */
-    function checkLock() {
-      const value = document.getElementById('lockInput').value.trim().toLowerCase();
-      if (value === 'didi') {
-        document.getElementById('lockError').style.display = 'none';
-        startSurprise();
-      } else {
-        document.getElementById('lockError').style.display = 'block';
-      }
-    }
+    <div class="lightbox hidden" id="lightbox">
+      <span class="lightbox-close" id="lightboxClose">&times;</span>
+      <img id="lightboxImg" src="" alt="A memory together" />
+    </div>
 
-    const messages = [
-      { text: 'Hi Didi 👋', side: 'left' },
-      { text: 'I hope you are smiling 😊', side: 'right' },
-      { text: 'I just wanted to say...', side: 'left' },
-      { text: 'You are very special to me 💖', side: 'right' },
-      { text: 'This is a small surprise for you 🎁', side: 'left' }
-    ];
+    <!-- Global floating music player -->
+    <div class="music-player">
+      <button id="playPauseBtn" class="play-btn">▶</button>
+      <div class="player-info">
+        <span class="player-title">Birthday Song</span>
+        <div class="progress-track" id="progressTrack">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <input
+        type="range"
+        id="volumeSlider"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.6"
+        class="volume-slider"
+      />
+      <audio id="bgAudio" loop>
+        <source src="music.mp3" type="audio/ogg" />
+      </audio>
+    </div>
 
-    const images = ['img1.jpg', 'img2.jpg', 'img3.jpg' ,'img4.jpg'];
-    let slideIndex = 0;
-
-    function startSurprise() {
-      const music = document.getElementById('bgMusic');
-      music.play().catch(() => {});
-
-      document.getElementById('lock').classList.remove('active');
-      const chat = document.getElementById('chat');
-      chat.classList.add('active');
-
-      messages.forEach((msg, i) => {
-        setTimeout(() => {
-          const div = document.createElement('div');
-          div.className = 'bubble ' + msg.side;
-          div.innerText = msg.text;
-          chat.appendChild(div);
-        }, i * 1200);
-      });
-
-      setTimeout(() => {
-        chat.classList.remove('active');
-        document.getElementById('slideshow').classList.add('active');
-        startSlideshow();
-      }, messages.length * 1200 + 1000);
-    }
-
-    function startSlideshow() {
-      const slide = document.getElementById('slideImage');
-      slide.src = images[slideIndex];
-
-      const interval = setInterval(() => {
-        slideIndex++;
-        if (slideIndex >= images.length) {
-          clearInterval(interval);
-          document.getElementById('slideshow').classList.remove('active');
-          document.getElementById('final').classList.add('active');
-        } else {
-          slide.src = images[slideIndex];
-        }
-      }, 2000);
-    }
-  </script>
-
-</body>
+    <script src="js/script.js"></script>
+  </body>
 </html>
