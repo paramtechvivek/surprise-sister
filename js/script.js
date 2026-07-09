@@ -293,48 +293,56 @@ function initMusicPlayer() {
 }
 
 /* ---------- 6. Loading scene: auto-advance after 3 seconds ---------- */
+/* ---------- Loading Countdown ---------- */
+function initLoadingCountdown() {
 
-const countdown = document.getElementById("loadingCountdown");
+  const countdown = document.getElementById("loadingCountdown");
+  const loadingSection = document.getElementById("section-loading");
+  const welcomeSection = document.getElementById("section-welcome");
 
-let number = 3;
+  if (!countdown || !loadingSection || !welcomeSection) return;
 
-countdown.textContent = number;
+  let number = 3;
 
-const timer = setInterval(() => {
+  countdown.textContent = number;
+
+  const timer = setInterval(() => {
 
     number--;
 
-    if(number > 0){
+    if (number > 0) {
 
-        countdown.style.animation = "none";
-        countdown.offsetHeight;
-        countdown.style.animation = "countPulse 1s ease";
+      // Restart animation smoothly
+      countdown.style.animation = "none";
+      void countdown.offsetWidth;
+      countdown.style.animation = "countPulse 1s ease";
 
-        countdown.textContent = number;
+      countdown.textContent = number;
 
-    }else{
+    } else {
 
-        clearInterval(timer);
+      clearInterval(timer);
 
-        countdown.textContent = "🎉";
+      countdown.textContent = "🎉";
 
-        setTimeout(() => {
+      setTimeout(() => {
 
-            // Hide Loading Screen
-            document
-                .getElementById("section-loading")
-                .classList.remove("active");
+        // Switch scenes properly
+        loadingSection.classList.remove("active");
+        welcomeSection.classList.add("active");
 
-            // Show Welcome Screen
-            document
-                .getElementById("section-welcome")
-                .classList.add("active");
+        // Update navigation dots
+        if (typeof updateJourneyDots === "function") {
+          updateJourneyDots("welcome");
+        }
 
-        },800);
+      }, 800);
 
     }
 
-},1000);
+  }, 1000);
+
+}
 
 /* ---------- 7. Cake scene: countdown + blow out candles ---------- */
 function initCakeScene() {
@@ -518,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCursorMagic();
   initFireworks();
   initMusicPlayer();
-  initLoadingScene();
+  initLoadingCountdown();
   initCakeScene();
   initGiftScene();
   initGalleryScene();
