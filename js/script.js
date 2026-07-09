@@ -26,13 +26,23 @@ function updateJourneyDots(name) {
 }
 
 function initNavigation() {
-  document.querySelectorAll('.journey-next').forEach((btn) => {
-    btn.addEventListener('click', () => goToScene(btn.dataset.target));
+
+  document.querySelectorAll('.journey-next').forEach((btn)=>{
+
+    btn.addEventListener('click',(e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+
+      const target = btn.dataset.target;
+
+      if(target){
+        goToScene(target);
+      }
+
+    });
+
   });
-  document.querySelectorAll('.journey-dot').forEach((dot) => {
-    dot.addEventListener('click', () => goToScene(dot.dataset.target));
-  });
-  updateJourneyDots('loading');
+
 }
 
 /* ---------- 1. Ambient background (stars / moon / clouds / fireflies / floating decor) ---------- */
@@ -283,9 +293,7 @@ function initMusicPlayer() {
 }
 
 /* ---------- 6. Loading scene: auto-advance after 3 seconds ---------- */
-function initLoadingScene() {
-  setTimeout(() => goToScene('welcome'), 3000);
-}
+
 const countdown = document.getElementById("loadingCountdown");
 
 let number = 3;
@@ -516,3 +524,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryScene();
   initMessageScene();
 });
+

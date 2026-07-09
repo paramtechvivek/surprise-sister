@@ -73,10 +73,11 @@ a { color: inherit; text-decoration: none; }
 
 .journey-section.active {
   position: relative;
-  z-index: 2;
+  z-index: 50;
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .scene-heading { font-size: clamp(1.6rem, 5vw, 2.6rem); }
@@ -533,4 +534,37 @@ a { color: inherit; text-decoration: none; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.btn {
+  position: relative;
+  z-index: 999;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.journey-next {
+  position: relative;
+  z-index: 9999;
+}
+@media(max-width:640px){
+
+  .journey-section{
+    padding:80px 18px 140px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+
+  .btn{
+    min-height:52px;
+    width:auto;
+    font-size:15px;
+  }
+
+
+  .title-display{
+    font-size:2rem;
+  }
+
 }
