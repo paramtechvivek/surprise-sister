@@ -2,35 +2,56 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy Birthday AMU Diiii</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+
+    <title>Happy Birthday AMU Diiii 🎂</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,500&family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="css/style.css" />
   </head>
+
   <body>
-    <!-- Global ambient layers, shared by every scene -->
+    <!-- Background Layers -->
+
     <div id="ambient"></div>
+
     <canvas id="fireworksCanvas"></canvas>
+
     <div id="confettiRoot"></div>
 
-    <!-- Scene progress dots — click to jump to any scene -->
+    <!-- Navigation -->
+
     <nav class="journey-nav">
-      <span class="journey-dot" data-target="loading"></span>
+      <span class="journey-dot active" data-target="loading"></span>
+
       <span class="journey-dot" data-target="welcome"></span>
+
       <span class="journey-dot" data-target="cake"></span>
+
       <span class="journey-dot" data-target="gift"></span>
+
       <span class="journey-dot" data-target="gallery"></span>
+
       <span class="journey-dot" data-target="message"></span>
+
       <span class="journey-dot" data-target="final"></span>
     </nav>
 
     <main id="journeyRoot">
-      <!-- SCENE 1 — Loading -->
+      <!-- LOADING -->
+
       <section class="journey-section active" id="section-loading">
         <div class="countdown-container">
           <h2 class="loading-text">
@@ -43,49 +64,64 @@
         </div>
       </section>
 
-      <!-- SCENE 2 — Welcome -->
+      <!-- WELCOME -->
+
       <section class="journey-section" id="section-welcome">
         <p class="eyebrow">A little surprise</p>
+
         <h1 class="title-display">🎉 Happy Birthday AMU Diiii 🎉</h1>
+
         <p class="subtitle">
           Today is all about celebrating the most wonderful sister. This little
           surprise is made with lots of love just for you.
         </p>
+
         <button class="btn glow-outline journey-next" data-target="cake">
           ✨ Start Your Birthday Journey ✨
         </button>
       </section>
 
-      <!-- SCENE 3 — Cake -->
+      <!-- CAKE -->
+
       <section class="journey-section" id="section-cake">
         <p class="eyebrow">Make a wish</p>
+
         <h2 class="title-display scene-heading">Time to Blow the Candles</h2>
 
         <div class="cake-wrap">
           <div class="cake" id="cakeEl">
             <div class="flame-group">
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
+              <div class="candle">
+                <div class="flame"></div>
+              </div>
+
+              <div class="candle">
+                <div class="flame"></div>
+              </div>
+
+              <div class="candle">
+                <div class="flame"></div>
+              </div>
             </div>
-            <div class="cake-layer layer-top">
-              <div class="drip"></div>
-              <div class="drip"></div>
-              <div class="drip"></div>
-              <div class="rose" style="top: -8px; left: 20px"></div>
-              <div class="rose" style="top: -8px; right: 20px"></div>
-            </div>
+
+            <div class="cake-layer layer-top"></div>
+
             <div class="cake-layer layer-mid"></div>
+
             <div class="cake-layer layer-bottom"></div>
+
             <div class="cake-plate"></div>
           </div>
-          <div class="smoke-container" id="smokeContainer"></div>
+
+          <div id="smokeContainer" class="smoke-container"></div>
         </div>
 
         <button class="btn" id="blowBtn">🎂 Blow the Candles</button>
+
         <p class="wish-text hidden" id="wishText">
           🎉 Make A Wish AMU Diiii 🎉
         </p>
+
         <button
           class="btn glass glow-outline hidden journey-next"
           id="cakeNextBtn"
@@ -95,16 +131,21 @@
         </button>
       </section>
 
-      <!-- SCENE 4 — Gift -->
+      <!-- GIFT -->
+
       <section class="journey-section" id="section-gift">
         <p class="eyebrow">A gift for you</p>
+
         <h2 class="title-display scene-heading">A Little Something Special</h2>
 
         <div class="gift-wrap">
           <div class="gift-box" id="giftBox">
             <div class="gift-lid"></div>
+
             <div class="gift-body"></div>
+
             <div class="gift-ribbon-v"></div>
+
             <div class="gift-ribbon-h"></div>
           </div>
         </div>
@@ -114,6 +155,7 @@
         <div class="gift-reveal hidden" id="giftReveal">
           <p>I am in your life what greater gift could there be than that?</p>
         </div>
+
         <button
           class="btn glass glow-outline hidden journey-next"
           id="giftNextBtn"
@@ -123,52 +165,54 @@
         </button>
       </section>
 
-      <!-- SCENE 5 — Gallery -->
+      <!-- GALLERY -->
+
       <section class="journey-section" id="section-gallery">
         <p class="eyebrow">Memory lane</p>
+
         <h2 class="title-display scene-heading">Our Beautiful Memories</h2>
+
         <div class="gallery-grid" id="galleryGrid"></div>
-        <button
-          class="btn glow-outline journey-next"
-          data-target="message"
-          style="margin-top: 30px"
-        >
+
+        <button class="btn glow-outline journey-next" data-target="message">
           Read My Letter
         </button>
       </section>
 
-      <!-- SCENE 6 — Message -->
+      <!-- MESSAGE -->
+
       <section class="journey-section" id="section-message">
         <p class="eyebrow">From my heart</p>
+
         <h2 class="title-display scene-heading">A Little Letter For You</h2>
-        <p class="subtitle" style="margin-bottom: 10px">
-          Tap the envelope to open it
-        </p>
+
+        <p class="subtitle">Tap the envelope to open it</p>
 
         <div class="envelope-wrap">
           <div class="envelope" id="envelope">
             <div class="letter-paper"></div>
+
             <div class="envelope-flap"></div>
+
             <div class="envelope-seal">💌</div>
           </div>
         </div>
 
         <div class="letter-full hidden" id="letterFull">
           <p>Dear AMU Diiii,</p>
-          <br />
+
           <p>
             Thank you for always supporting me, caring for me, and making every
             moment special.
           </p>
-          <br />
+
           <p>
-            I wish you endless happiness, good health, success, and a life full
-            of beautiful memories.
+            I wish you endless happiness, good health, success and beautiful
+            memories.
           </p>
-          <br />
-          <p>May every dream you have become true.</p>
-          <br />
-          <p>Happy Birthday!</p>
+
+          <p>Happy Birthday ❤️</p>
+
           <p class="letter-signature">Love You Always ❤️</p>
         </div>
 
@@ -181,7 +225,7 @@
         </button>
       </section>
 
-      <!-- SCENE 7 — Final celebration -->
+      <!-- FINAL -->
 
       <section class="journey-section finale-scene" id="section-final">
         <div class="final-stars"></div>
@@ -200,22 +244,19 @@
 
         <p class="final-subtitle">
           You are not just my sister...
+
           <br />
-          You are my biggest blessing, my best friend, and the reason behind so
-          many beautiful memories. ❤️
+
+          You are my biggest blessing, my best friend and my happiness ❤️
         </p>
 
         <div class="birthday-card">
-          <div class="card-glow"></div>
-
           <h2>💖 Best Wishes 💖</h2>
 
           <p>
-            May your life always be filled with happiness, love, success,
-            laughter and endless adventures.
+            May your life always be filled with happiness, love, success and
+            endless adventures.
           </p>
-
-          <p>Keep smiling because your smile makes everyone's day brighter.</p>
 
           <h3>Love You Forever ❤️</h3>
         </div>
@@ -232,38 +273,48 @@
       </section>
     </main>
 
+    <!-- Countdown Overlay -->
+
     <div id="countdownOverlay" class="hidden">
       <div class="countdown-number" id="countdownNumber">3</div>
     </div>
 
+    <!-- Lightbox -->
+
     <div class="lightbox hidden" id="lightbox">
-      <span class="lightbox-close" id="lightboxClose">&times;</span>
-      <img id="lightboxImg" src="" alt="A memory together" />
+      <span class="lightbox-close" id="lightboxClose"> &times; </span>
+
+      <img id="lightboxImg" src="" alt="Memory" />
     </div>
 
-    <!-- Global floating music player -->
+    <!-- Music -->
+
     <div class="music-player">
       <button id="playPauseBtn" class="play-btn">▶</button>
+
       <div class="player-info">
-        <span class="player-title">Birthday Song</span>
+        <span class="player-title"> Birthday Song </span>
+
         <div class="progress-track" id="progressTrack">
           <div class="progress-fill" id="progressFill"></div>
         </div>
       </div>
+
       <input
         type="range"
         id="volumeSlider"
+        class="volume-slider"
         min="0"
         max="1"
         step="0.01"
         value="0.6"
-        class="volume-slider"
       />
+
       <audio id="bgAudio" loop>
-        <source src="music.mp3" type="audio/ogg" />
+        <source src="music.mp3" type="audio/mpeg" />
       </audio>
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
   </body>
 </html>
