@@ -1,255 +1,297 @@
+<!-- ===========================
+index.html
+PART 1 / ?
+=========================== -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy Birthday AMU Diiii</title>
+
+    <title>Happy Birthday ❤️</title>
+
+    <meta name="theme-color" content="#0b1020" />
+    <meta name="description" content="Premium Lite Birthday Website" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;1,500&family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <!-- Global ambient layers, shared by every scene -->
-    <div id="ambient"></div>
+    <!-- =========================
+    GALAXY BACKGROUND
+    ========================== -->
+
+    <canvas id="galaxy"></canvas>
+
+    <div class="stars"></div>
+    <div class="twinkle"></div>
+
+    <!-- Confetti -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Fireworks -->
     <canvas id="fireworksCanvas"></canvas>
-    <div id="confettiRoot"></div>
 
-    <!-- Scene progress dots — click to jump to any scene -->
-    <nav class="journey-nav">
-      <span class="journey-dot" data-target="loading"></span>
-      <span class="journey-dot" data-target="welcome"></span>
-      <span class="journey-dot" data-target="cake"></span>
-      <span class="journey-dot" data-target="gift"></span>
-      <span class="journey-dot" data-target="gallery"></span>
-      <span class="journey-dot" data-target="message"></span>
-      <span class="journey-dot" data-target="final"></span>
-    </nav>
+    <!-- =========================
+    MUSIC PLAYER
+    ========================== -->
 
-    <main id="journeyRoot">
-      <!-- SCENE 1 — Loading -->
-      <section class="journey-section active" id="section-loading">
-        <p class="loading-text">
-          A Special Birthday Surprise is Waiting<span class="dots"
-            ><span>.</span><span>.</span><span>.</span></span
-          >
-        </p>
-        <div class="loader-ring"></div>
-      </section>
+    <audio id="bgMusic" loop>
+      <source src="music.mp3" type="audio/mpeg" />
+    </audio>
 
-      <!-- SCENE 2 — Welcome -->
-      <section class="journey-section" id="section-welcome">
-        <p class="eyebrow">A little surprise</p>
-        <h1 class="title-display">🎉 Happy Birthday AMU Diiii 🎉</h1>
-        <p class="subtitle">
-          Today is all about celebrating the most wonderful sister. This little
-          surprise is made with lots of love just for you.
-        </p>
-        <button class="btn glow-outline journey-next" data-target="cake">
-          ✨ Start Your Birthday Journey ✨
-        </button>
-      </section>
+    <button id="musicBtn" class="music-btn">
+      <span id="musicIcon">▶</span>
+    </button>
 
-      <!-- SCENE 3 — Cake -->
-      <section class="journey-section" id="section-cake">
-        <p class="eyebrow">Make a wish</p>
-        <h2 class="title-display scene-heading">Time to Blow the Candles</h2>
+    <!-- =========================
+    MAIN WRAPPER
+    ========================== -->
 
-        <div class="cake-wrap">
-          <div class="cake" id="cakeEl">
-            <div class="flame-group">
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
-            </div>
-            <div class="cake-layer layer-top">
-              <div class="drip"></div>
-              <div class="drip"></div>
-              <div class="drip"></div>
-              <div class="rose" style="top: -8px; left: 20px"></div>
-              <div class="rose" style="top: -8px; right: 20px"></div>
-            </div>
-            <div class="cake-layer layer-mid"></div>
-            <div class="cake-layer layer-bottom"></div>
-            <div class="cake-plate"></div>
-          </div>
-          <div class="smoke-container" id="smokeContainer"></div>
+    <main id="app">
+      <!-- =====================
+        HERO
+        ====================== -->
+
+      <section id="hero" class="screen active">
+        <div class="glass hero-card">
+          <h2 class="top-title">✨ Today Is Special ✨</h2>
+
+          <h1 class="main-title">Happy Birthday</h1>
+
+          <h3 class="name">❤️ My Favourite Person ❤️</h3>
+
+          <p class="subtitle">I made something beautiful just for you...</p>
+
+          <button id="startBtn" class="primary-btn">Open Surprise 🎁</button>
         </div>
-
-        <button class="btn" id="blowBtn">🎂 Blow the Candles</button>
-        <p class="wish-text hidden" id="wishText">
-          🎉 Make A Wish AMU Diiii 🎉
-        </p>
-        <button
-          class="btn glass glow-outline hidden journey-next"
-          id="cakeNextBtn"
-          data-target="gift"
-        >
-          Next Surprise →
-        </button>
       </section>
 
-      <!-- SCENE 4 — Gift -->
-      <section class="journey-section" id="section-gift">
-        <p class="eyebrow">A gift for you</p>
-        <h2 class="title-display scene-heading">A Little Something Special</h2>
+      <!-- =====================
+        GIFT SECTION
+        ====================== -->
 
-        <div class="gift-wrap">
-          <div class="gift-box" id="giftBox">
+      <section id="giftSection" class="screen">
+        <div class="glass">
+          <h2 class="section-title">Tap the Gift</h2>
+
+          <div id="giftBox">
             <div class="gift-lid"></div>
+
             <div class="gift-body"></div>
+
             <div class="gift-ribbon-v"></div>
+
             <div class="gift-ribbon-h"></div>
           </div>
         </div>
+      </section>
 
-        <button class="btn" id="openGiftBtn">🎁 Open Gift</button>
+      <!-- =====================
+        LETTER
+        ====================== -->
 
-        <div class="gift-reveal hidden" id="giftReveal">
-          <p>I am in your life what greater gift could there be❤️</p>
+      <section id="letterSection" class="screen">
+        <div class="glass letter-card">
+          <h2 class="section-title">A Letter For You 💌</h2>
+
+          <div id="typewriter"></div>
+
+          <button id="nextGallery" class="primary-btn">Continue ❤️</button>
         </div>
-        <button
-          class="btn glass glow-outline hidden journey-next"
-          id="giftNextBtn"
-          data-target="gallery"
-        >
-          See Memories
-        </button>
       </section>
 
-      <!-- SCENE 5 — Gallery -->
-      <section class="journey-section" id="section-gallery">
-        <p class="eyebrow">Memory lane</p>
-        <h2 class="title-display scene-heading">Our Beautiful Memories</h2>
-        <div class="gallery-grid" id="galleryGrid"></div>
-        <button
-          class="btn glow-outline journey-next"
-          data-target="message"
-          style="margin-top: 30px"
-        >
-          Read My Letter
-        </button>
-      </section>
+      <!-- =====================
+        PHOTO GALLERY
+        ====================== -->
 
-      <!-- SCENE 6 — Message -->
-      <section class="journey-section" id="section-message">
-        <p class="eyebrow">From my heart</p>
-        <h2 class="title-display scene-heading">A Little Letter For You</h2>
-        <p class="subtitle" style="margin-bottom: 10px">
-          Tap the envelope to open it
-        </p>
+      <section id="gallerySection" class="screen">
+        <div class="gallery-wrapper">
+          <h2 class="section-title">Beautiful Memories</h2>
 
-        <div class="envelope-wrap">
-          <div class="envelope" id="envelope">
-            <div class="letter-paper"></div>
-            <div class="envelope-flap"></div>
-            <div class="envelope-seal">💌</div>
+          <div class="gallery-grid">
+            <div class="photo">
+              <img src="images/1.jpg" alt="" />
+            </div>
+
+            <div class="photo">
+              <img src="images/2.jpg" alt="" />
+            </div>
+
+            <div class="photo">
+              <img src="images/3.jpg" alt="" />
+            </div>
+
+            <div class="photo">
+              <img src="images/4.jpg" alt="" />
+            </div>
+
+            <div class="photo">
+              <img src="images/5.jpg" alt="" />
+            </div>
+
+            <div class="photo">
+              <img src="images/6.jpg" alt="" />
+            </div>
           </div>
-        </div>
 
-        <div class="letter-full hidden" id="letterFull">
-          <p>Dear AMU Diiii,</p>
-          <br />
-          <p>
-            Thank you for always supporting me, caring for me, and making every
-            moment special.
-          </p>
-          <br />
-          <p>
-            I wish you endless happiness, good health, success, and a life full
-            of beautiful memories.
-          </p>
-          <br />
-          <p>May every dream you have become true.</p>
-          <br />
-          <p>Happy Birthday!</p>
-          <p class="letter-signature">Love You Always ❤️</p>
+          <button id="cakeBtn" class="primary-btn">Birthday Cake 🎂</button>
         </div>
-
-        <button
-          class="btn glow-outline hidden journey-next"
-          id="messageNextBtn"
-          data-target="final"
-        >
-          Final Celebration
-        </button>
       </section>
 
-      <!-- SCENE 7 — Final celebration -->
-      <section class="journey-section" id="section-final">
-        <h1 class="finale-title" id="finaleTitle">
-          🎉 Happy Birthday AMU Diiii 🎉
-        </h1>
-        <p class="subtitle">
-          May your smile always shine brighter than the stars.
-        </p>
+      <!-- =====================
+        CAKE
+        ====================== -->
 
-        <div class="cake-wrap" style="margin-top: 30px; transform: scale(0.75)">
+      <section id="cakeSection" class="screen">
+        <div class="glass cake-card">
+          <h2 class="section-title">Make A Wish</h2>
+
           <div class="cake">
-            <div class="flame-group">
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
+            <div class="candle">
+              <div class="flame"></div>
             </div>
-            <div class="cake-layer layer-top">
-              <div class="drip"></div>
-              <div class="drip"></div>
-              <div class="drip"></div>
-            </div>
-            <div class="cake-layer layer-mid"></div>
-            <div class="cake-layer layer-bottom"></div>
-            <div class="cake-plate"></div>
-          </div>
-        </div>
 
-        <button
-          class="btn glass journey-next"
-          data-target="welcome"
-          style="margin-top: 30px"
-        >
-          ↺ Relive the Journey
-        </button>
+            <div class="layer top"></div>
+
+            <div class="layer middle"></div>
+
+            <div class="layer bottom"></div>
+          </div>
+
+          <button id="celebrateBtn" class="primary-btn">Celebrate 🎉</button>
+        </div>
       </section>
+              <!-- =====================
+        FINAL CELEBRATION
+        ====================== -->
+
+        <section id="finalSection" class="screen">
+
+            <div class="glass final-card">
+
+                <div class="heart-container">
+
+                    <div class="heart"></div>
+
+                </div>
+
+                <h1 class="final-title">
+                    Happy Birthday ❤️
+                </h1>
+
+                <h2 class="final-name">
+                    My Favourite Person
+                </h2>
+
+                <p class="final-message">
+                    May your smile always shine brighter than the stars,
+                    your dreams come true,
+                    your heart stay full of happiness,
+                    and every new year bring endless love,
+                    success, peace and unforgettable memories.
+                </p>
+
+                <div class="wish-list">
+
+                    <div class="wish-item">
+                        🌸 Happiness
+                    </div>
+
+                    <div class="wish-item">
+                        ❤️ Love
+                    </div>
+
+                    <div class="wish-item">
+                        ✨ Success
+                    </div>
+
+                    <div class="wish-item">
+                        🌙 Peace
+                    </div>
+
+                    <div class="wish-item">
+                        🎁 Endless Surprises
+                    </div>
+
+                    <div class="wish-item">
+                        🎂 Wonderful Memories
+                    </div>
+
+                </div>
+
+                <button id="restartBtn" class="primary-btn">
+                    Replay Surprise 🔄
+                </button>
+
+            </div>
+
+        </section>
+
     </main>
 
-    <div id="countdownOverlay" class="hidden">
-      <div class="countdown-number" id="countdownNumber">3</div>
-    </div>
+    <!-- =====================
+    LOADER
+    ====================== -->
 
-    <div class="lightbox hidden" id="lightbox">
-      <span class="lightbox-close" id="lightboxClose">&times;</span>
-      <img id="lightboxImg" src="" alt="A memory together" />
-    </div>
+    <div id="loader">
 
-    <!-- Global floating music player -->
-    <div class="music-player">
-      <button id="playPauseBtn" class="play-btn">▶</button>
-      <div class="player-info">
-        <span class="player-title">Birthday Song</span>
-        <div class="progress-track" id="progressTrack">
-          <div class="progress-fill" id="progressFill"></div>
+        <div class="loader-content">
+
+            <div class="loader-ring"></div>
+
+            <h2>Preparing Your Surprise...</h2>
+
         </div>
-      </div>
-      <input
-        type="range"
-        id="volumeSlider"
-        min="0"
-        max="1"
-        step="0.01"
-        value="0.6"
-        class="volume-slider"
-      />
-      <audio id="bgAudio" loop>
-        <source
-          src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
-          type="audio/ogg"
-        />
-      </audio>
+
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- =====================
+    FLOATING PARTICLES
+    ====================== -->
+
+    <div class="particles">
+
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+    <!-- =====================
+    GSAP
+    ====================== -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"></script>
+
+    <!-- =====================
+    MAIN SCRIPT
+    ====================== -->
+
+    <script src="script.js"></script>
+
+
+      </main>
   </body>
 </html>
