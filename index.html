@@ -1,297 +1,323 @@
-<!-- ===========================
-index.html
-PART 1 / ?
-=========================== -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Happy Birthday ❤️</title>
-
-    <meta name="theme-color" content="#0b1020" />
-    <meta name="description" content="Premium Lite Birthday Website" />
-
-    <!-- Google Fonts -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1"
+    />
+    <title>Happy Birthday — A Little Universe For You</title>
+    <meta name="description" content="A premium animated birthday surprise." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Great+Vibes&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@300;400;500;600;700&family=Meddon&display=swap"
       rel="stylesheet"
     />
-
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
-    <!-- =========================
-    GALAXY BACKGROUND
-    ========================== -->
+    <!-- ============ GALAXY CANVAS BACKGROUND ============ -->
+    <canvas id="galaxy-canvas" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
 
-    <canvas id="galaxy"></canvas>
+    <!-- ============ LOADER ============ -->
+    <div id="loader" class="loader" role="status" aria-live="polite">
+      <div class="loader-glow"></div>
+      <div class="loader-logo">
+        <svg viewBox="0 0 100 100" class="loader-star">
+          <path
+            d="M50 5 L61 39 L97 39 L68 60 L79 95 L50 74 L21 95 L32 60 L3 39 L39 39 Z"
+          />
+        </svg>
+      </div>
+      <div class="loader-text">
+        preparing something beautiful<span class="loader-dots">...</span>
+      </div>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loader-bar-fill"></div>
+      </div>
+      <div class="loader-percent" id="loader-percent">0%</div>
+    </div>
 
-    <div class="stars"></div>
-    <div class="twinkle"></div>
-
-    <!-- Confetti -->
-    <canvas id="confettiCanvas"></canvas>
-
-    <!-- Fireworks -->
-    <canvas id="fireworksCanvas"></canvas>
-
-    <!-- =========================
-    MUSIC PLAYER
-    ========================== -->
-
-    <audio id="bgMusic" loop>
-      <source src="music.mp3" type="audio/mpeg" />
-    </audio>
-
-    <button id="musicBtn" class="music-btn">
-      <span id="musicIcon">▶</span>
-    </button>
-
-    <!-- =========================
-    MAIN WRAPPER
-    ========================== -->
+    <!-- ============ MUSIC PLAYER ============ -->
+    <div class="music-player" id="music-player" aria-label="Music player">
+      <button
+        class="music-toggle"
+        id="music-toggle"
+        aria-label="Play music"
+        aria-pressed="false"
+      >
+        <svg class="icon-play" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <svg class="icon-pause" viewBox="0 0 24 24" hidden>
+          <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+        </svg>
+        <span class="music-ring"></span>
+      </button>
+      <div class="music-info">
+        <div class="music-title">Our Song</div>
+        <div
+          class="music-progress-track"
+          id="music-seek"
+          role="slider"
+          aria-label="Seek"
+          tabindex="0"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <div class="music-progress-fill" id="music-progress-fill"></div>
+        </div>
+      </div>
+      <input
+        type="range"
+        class="music-volume"
+        id="music-volume"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.6"
+        aria-label="Volume"
+      />
+      <audio id="bg-audio" src="music/birthday.mp3" preload="auto" loop></audio>
+    </div>
 
     <main id="app">
-      <!-- =====================
-        HERO
-        ====================== -->
-
-      <section id="hero" class="screen active">
-        <div class="glass hero-card">
-          <h2 class="top-title">✨ Today Is Special ✨</h2>
-
-          <h1 class="main-title">Happy Birthday</h1>
-
-          <h3 class="name">❤️ My Favourite Person ❤️</h3>
-
-          <p class="subtitle">I made something beautiful just for you...</p>
-
-          <button id="startBtn" class="primary-btn">Open Surprise 🎁</button>
+      <!-- ============ SCENE 1 — WELCOME ============ -->
+      <section
+        class="scene"
+        id="scene-welcome"
+        data-scene="1"
+        aria-label="Welcome"
+      >
+        <div
+          class="floating-hearts"
+          id="floating-hearts"
+          aria-hidden="true"
+        ></div>
+        <div class="glass-card welcome-card">
+          <p class="eyebrow">a little universe, made for</p>
+          <h1 class="title-name" id="title-name">Ananya</h1>
+          <h2 class="title-main">Happy Birthday</h2>
+          <p class="subtitle">
+            Somewhere among a hundred billion stars, tonight belongs entirely to
+            you.
+          </p>
+          <button class="btn-primary" id="btn-start" data-next="scene-gift">
+            <span>Begin the journey</span>
+            <svg viewBox="0 0 24 24" class="btn-arrow">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       </section>
 
-      <!-- =====================
-        GIFT SECTION
-        ====================== -->
+      <!-- ============ SCENE 2 — GIFT BOX ============ -->
+      <section class="scene" id="scene-gift" data-scene="2" aria-label="Gift">
+        <div class="scene-inner">
+          <p class="eyebrow">scene two</p>
+          <h2 class="scene-heading">A gift, waiting patiently</h2>
+          <p class="scene-sub">
+            Tap the box. It's been holding its breath all day.
+          </p>
 
-      <section id="giftSection" class="screen">
-        <div class="glass">
-          <h2 class="section-title">Tap the Gift</h2>
-
-          <div id="giftBox">
-            <div class="gift-lid"></div>
-
-            <div class="gift-body"></div>
-
-            <div class="gift-ribbon-v"></div>
-
-            <div class="gift-ribbon-h"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =====================
-        LETTER
-        ====================== -->
-
-      <section id="letterSection" class="screen">
-        <div class="glass letter-card">
-          <h2 class="section-title">A Letter For You 💌</h2>
-
-          <div id="typewriter"></div>
-
-          <button id="nextGallery" class="primary-btn">Continue ❤️</button>
-        </div>
-      </section>
-
-      <!-- =====================
-        PHOTO GALLERY
-        ====================== -->
-
-      <section id="gallerySection" class="screen">
-        <div class="gallery-wrapper">
-          <h2 class="section-title">Beautiful Memories</h2>
-
-          <div class="gallery-grid">
-            <div class="photo">
-              <img src="images/1.jpg" alt="" />
-            </div>
-
-            <div class="photo">
-              <img src="images/2.jpg" alt="" />
-            </div>
-
-            <div class="photo">
-              <img src="images/3.jpg" alt="" />
-            </div>
-
-            <div class="photo">
-              <img src="images/4.jpg" alt="" />
-            </div>
-
-            <div class="photo">
-              <img src="images/5.jpg" alt="" />
-            </div>
-
-            <div class="photo">
-              <img src="images/6.jpg" alt="" />
-            </div>
-          </div>
-
-          <button id="cakeBtn" class="primary-btn">Birthday Cake 🎂</button>
-        </div>
-      </section>
-
-      <!-- =====================
-        CAKE
-        ====================== -->
-
-      <section id="cakeSection" class="screen">
-        <div class="glass cake-card">
-          <h2 class="section-title">Make A Wish</h2>
-
-          <div class="cake">
-            <div class="candle">
-              <div class="flame"></div>
-            </div>
-
-            <div class="layer top"></div>
-
-            <div class="layer middle"></div>
-
-            <div class="layer bottom"></div>
-          </div>
-
-          <button id="celebrateBtn" class="primary-btn">Celebrate 🎉</button>
-        </div>
-      </section>
-              <!-- =====================
-        FINAL CELEBRATION
-        ====================== -->
-
-        <section id="finalSection" class="screen">
-
-            <div class="glass final-card">
-
-                <div class="heart-container">
-
-                    <div class="heart"></div>
-
+          <div class="gift-stage">
+            <button class="gift-box" id="gift-box" aria-label="Open your gift">
+              <div class="gift-glow"></div>
+              <div class="gift-lid" id="gift-lid">
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-bow">
+                  <span></span><span></span>
+                  <div class="gift-bow-knot"></div>
                 </div>
+              </div>
+              <div class="gift-base">
+                <div class="gift-ribbon-v"></div>
+              </div>
+              <div class="gift-particles" id="gift-particles"></div>
+            </button>
+          </div>
 
-                <h1 class="final-title">
-                    Happy Birthday ❤️
-                </h1>
+          <button
+            class="btn-ghost scene-next"
+            data-next="scene-letter"
+            id="gift-continue"
+            hidden
+          >
+            <span>Read your letter</span>
+            <svg viewBox="0 0 24 24" class="btn-arrow">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </section>
 
-                <h2 class="final-name">
-                    My Favourite Person
-                </h2>
-
-                <p class="final-message">
-                    May your smile always shine brighter than the stars,
-                    your dreams come true,
-                    your heart stay full of happiness,
-                    and every new year bring endless love,
-                    success, peace and unforgettable memories.
-                </p>
-
-                <div class="wish-list">
-
-                    <div class="wish-item">
-                        🌸 Happiness
-                    </div>
-
-                    <div class="wish-item">
-                        ❤️ Love
-                    </div>
-
-                    <div class="wish-item">
-                        ✨ Success
-                    </div>
-
-                    <div class="wish-item">
-                        🌙 Peace
-                    </div>
-
-                    <div class="wish-item">
-                        🎁 Endless Surprises
-                    </div>
-
-                    <div class="wish-item">
-                        🎂 Wonderful Memories
-                    </div>
-
-                </div>
-
-                <button id="restartBtn" class="primary-btn">
-                    Replay Surprise 🔄
-                </button>
-
+      <!-- ============ SCENE 3 — LETTER ============ -->
+      <section
+        class="scene"
+        id="scene-letter"
+        data-scene="3"
+        aria-label="Letter"
+      >
+        <div class="scene-inner">
+          <div class="glass-card letter-card">
+            <p class="letter-heading">A note, just for you</p>
+            <div class="letter-body" id="letter-body">
+              <p id="letter-text"></p>
+              <span class="letter-cursor" id="letter-cursor">|</span>
             </div>
+            <button
+              class="btn-primary letter-continue"
+              id="letter-continue"
+              data-next="scene-gallery"
+              hidden
+            >
+              <span>Keep going</span>
+              <svg viewBox="0 0 24 24" class="btn-arrow">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
 
-        </section>
+      <!-- ============ SCENE 4 — GALLERY ============ -->
+      <section
+        class="scene"
+        id="scene-gallery"
+        data-scene="4"
+        aria-label="Gallery"
+      >
+        <div class="scene-inner scene-inner-wide">
+          <p class="eyebrow">scene four</p>
+          <h2 class="scene-heading">Moments worth freezing in time</h2>
+          <div class="gallery-grid" id="gallery-grid"></div>
+          <button class="btn-ghost scene-next" data-next="scene-cake">
+            <span>Light the candles</span>
+            <svg viewBox="0 0 24 24" class="btn-arrow">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
 
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox" aria-hidden="true">
+          <button class="lightbox-close" id="lightbox-close" aria-label="Close">
+            &times;
+          </button>
+          <button
+            class="lightbox-nav lightbox-prev"
+            id="lightbox-prev"
+            aria-label="Previous photo"
+          >
+            &#10094;
+          </button>
+          <img class="lightbox-img" id="lightbox-img" alt="" />
+          <button
+            class="lightbox-nav lightbox-next"
+            id="lightbox-next"
+            aria-label="Next photo"
+          >
+            &#10095;
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 5 — CAKE ============ -->
+      <section class="scene" id="scene-cake" data-scene="5" aria-label="Cake">
+        <div class="scene-inner">
+          <p class="eyebrow">scene five</p>
+          <h2 class="scene-heading">Make a wish</h2>
+          <p class="scene-sub" id="cake-sub">Tap each candle to blow it out.</p>
+
+          <div class="cake-stage">
+            <div class="cake" id="cake">
+              <div class="cake-smoke" id="cake-smoke"></div>
+              <div class="candles" id="candles"></div>
+              <div class="cake-layer cake-layer-top">
+                <div class="cake-drip"></div>
+              </div>
+              <div class="cake-layer cake-layer-mid"></div>
+              <div class="cake-layer cake-layer-bottom"></div>
+              <div class="cake-plate"></div>
+            </div>
+          </div>
+
+          <button
+            class="btn-primary scene-next"
+            data-next="scene-celebration"
+            id="cake-continue"
+            hidden
+          >
+            <span>Celebrate</span>
+            <svg viewBox="0 0 24 24" class="btn-arrow">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 6 — CELEBRATION ============ -->
+      <section
+        class="scene"
+        id="scene-celebration"
+        data-scene="6"
+        aria-label="Celebration"
+      >
+        <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+        <div class="balloons" id="balloons" aria-hidden="true"></div>
+        <div class="scene-inner">
+          <h2 class="scene-heading celebration-heading">Let it all light up</h2>
+          <p class="scene-sub">for the wonderful person you are</p>
+          <button class="btn-ghost scene-next" data-next="scene-final">
+            <span>One last thing</span>
+            <svg viewBox="0 0 24 24" class="btn-arrow">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ SCENE 7 — FINAL WISHES ============ -->
+      <section
+        class="scene"
+        id="scene-final"
+        data-scene="7"
+        aria-label="Final wishes"
+      >
+        <svg
+          class="constellation-svg"
+          id="constellation-svg"
+          viewBox="0 0 800 400"
+          aria-hidden="true"
+        ></svg>
+        <div class="glass-card final-card">
+          <p class="eyebrow">forever &amp; always</p>
+          <h2 class="final-heading">Happy Birthday,</h2>
+          <h1 class="final-name" id="final-name">Ananya</h1>
+          <p class="final-quote">
+            "Of all the stars I've ever looked at, none has ever shone quite
+            like you."
+          </p>
+          <p class="final-thanks">
+            Thank you for being exactly who you are — today, and every day
+            after.
+          </p>
+          <button class="btn-primary" id="btn-replay">
+            <span>Watch it again</span>
+            <svg viewBox="0 0 24 24" class="btn-refresh">
+              <path
+                d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-8 3.58-8 8s3.58 8 8 8a8 8 0 007.75-6H17.6a6 6 0 11-1.42-6.16L13 10h7V3l-2.35 3.35z"
+              />
+            </svg>
+          </button>
+        </div>
+      </section>
     </main>
 
-    <!-- =====================
-    LOADER
-    ====================== -->
-
-    <div id="loader">
-
-        <div class="loader-content">
-
-            <div class="loader-ring"></div>
-
-            <h2>Preparing Your Surprise...</h2>
-
-        </div>
-
-    </div>
-
-    <!-- =====================
-    FLOATING PARTICLES
-    ====================== -->
-
-    <div class="particles">
-
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-
-    </div>
-
-    <!-- =====================
-    GSAP
-    ====================== -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/gsap.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.7/ScrollTrigger.min.js"></script>
-
-    <!-- =====================
-    MAIN SCRIPT
-    ====================== -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="script.js"></script>
-
-
-      </main>
   </body>
 </html>
